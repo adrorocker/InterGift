@@ -15,7 +15,7 @@ class HomeController extends BaseController
 {
     public function welcome($request, $response)
     {
-        return $response->withJson(['Intergift' => 'Simple app to make interexchange of gifts easy and a real surprise for everyone.']);
+        return $response->withJson(['InterGift' => 'Simple app to make gift exchange easy and a real surprise for everyone.']);
     }
 
     public function version($request, $response)

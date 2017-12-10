@@ -21,6 +21,20 @@ class ExchangeController extends BaseController
         $service = new Exchange\Create($people, $date);
 
         $exchange = $service->execute();
+
+        foreach ($exchange->people() as $person) {
+            $email = $person->Sender->email;
+            $data = [
+                'name' => $person->Sender->name,
+                'reciver' => $person->Reciver->name,
+                'email' => $person->Reciver->email,
+            ];
+            $body = $this->view()->fetch('email/exchange', $data);
+            $this->mailer()->setTo($email)
+                ->setBody($body)
+                ->setSubject('Sorpresa. '.$person->Reciver->name.' sera a quine le daras un regalo.')
+                ->send();
+        }
         
         return $response->withJson($exchange);
     }

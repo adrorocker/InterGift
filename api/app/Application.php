@@ -12,6 +12,8 @@ namespace Intergift;
 use BadMethodCallException;
 use Dotenv\Dotenv;
 use Intergift\Provider\Gateway\ApiGatewayProvider;
+use Intergift\Provider\MailProvider;
+use Intergift\Provider\ViewProvider;
 use Intergift\Provider\ServiceProviderInterface;
 use Slim\App;
 use Psr\Http\Message\RequestInterface;
@@ -67,6 +69,7 @@ class Application
         define('APP_PATH', realpath($this->base . '/app/'));
         define('PUBLIC_PATH', realpath($this->base . '/public/'));
         define('STORAGE_PATH', realpath($this->base . '/storage/'));
+        define('VIEWS_PATH', realpath($this->base . '/resources/views/'));
         define('VERSION', $this->version);
     }
 
@@ -93,6 +96,8 @@ class Application
     protected function registerDefaultServices()
     {
         $this
+            ->register(new MailProvider)
+            ->register(new ViewProvider)
             ->register(new ApiGatewayProvider);
     }
 
